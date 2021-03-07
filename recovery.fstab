@@ -1,0 +1,34 @@
+
+# Android fstab file.
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+
+# mount point       fstype    device                                                                flags
+/super    			ext4    /dev/block/by-name/super         		flags=backup=0;display="super";
+/super_image     	emmc    /dev/block/by-name/super        		flags=backup=1;flashimg=1;
+/system_root		ext4	/dev/block/mapper/system                flags=backup=0;display="system";subpartitionof=/super;
+/system_image 		emmc	/dev/block/mapper/system                flags=backup=1;flashimg=1;subpartitionof=/super_image;
+/vendor 			ext4	/dev/block/mapper/vendor                flags=backup=0;display="vendor";subpartitionof=/super;
+/vendor_image   	emmc    /dev/block/mapper/vendor         		flags=backup=1;flashimg=1;subpartitionof=/super_image;
+/odm 				ext4	/dev/block/mapper/odm                   flags=backup=0;display="odm";subpartitionof=/super;
+/odm_image			emmc	/dev/block/mapper/odm                   flags=backup=1;flashimg=1;subpartitionof=/super_image;
+/product 			ext4	/dev/block/mapper/product               flags=backup=0;display="Product";subpartitionof=/super;
+/product_image  	emmc    /dev/block/mapper/product        		flags=backup=1;flashimg;subpartitionof=/super_image;
+
+/boot				emmc	/dev/block/platform/soc/1d84000.ufshc/by-name/boot                 flags=backup=1;display="boot";flashimg=1
+/recovery 			emmc	/dev/block/platform/soc/1d84000.ufshc/by-name/recovery              flags=backup=1;display="recovery";flashimg=1
+/data	 			f2fs	/dev/block/platform/soc/1d84000.ufshc/by-name/userdata	     		flags=encryptable=footer;length=-32768;fileencryption=ice;
+/cache				ext4	/dev/block/platform/soc/1d84000.ufshc/by-name/cache                 flags=wipeingui;wipeduringfactoryreset
+
+# Add misc for GOTA
+/misc  				emmc	/dev/block/platform/soc/1d84000.ufshc/by-name/misc                  flags=backup=1;display="misc"  
+
+#Auto-generated code by FOTA Portal
+/dtbo 				emmc	/dev/block/platform/soc/1d84000.ufshc/by-name/dtbo        		    flags=backup=1;display="Dtbo";flashimg=1
+/vbmeta				emmc	/dev/block/platform/soc/1d84000.ufshc/by-name/vbmeta		flags=backup=1;display="vbmeta";flashimg=1
+/vbmeta_samsung		emmc	/dev/block/platform/soc/1d84000.ufshc/by-name/vbmeta_samsung		flags=backup=1;display="vbmeta samsung";flashimg=1
+
+/external_sd 	 	auto	/dev/block/platform/soc/8804000.sdhci/mmcblk0p1       flags=display="external_sd";storage;wipeingui;removable;
+/usb_otg			auto	/dev/block/platform/soc/a600000.ssusb/a600000.dwc3/xhci-hcd.0.auto/sde1              flags=display="usb_otg";storage;wipeingui;removable;
+
+
